@@ -1,0 +1,61 @@
+{
+  "name": "text-overlay-bundle",
+  "version": "0.0.0",
+  "description": "",
+  "homepage": "",
+  "author": {
+    "name": "elton-tanaka",
+    "email": "elton.tanaka@univem.edu.br",
+    "url": ""
+  },
+  "files": [
+    "dashboard",
+    "graphics",
+    "extension.js",
+    "extension"
+  ],
+  "keywords": [
+    "",
+    "nodecg-bundle"
+  ],
+  "nodecg": {
+    "compatibleRange": "^1.1.1",
+    "dashboardPanels": [
+      {
+        "name": "panel",
+        "title": "Panel",
+        "width": 2,
+        "file": "panel.html",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "facecam",
+        "title": "Facecam",
+        "width": 3,
+        "file": "facecamPanel.html",
+        "headerColor": "#525F78"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "index.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "facecam.html",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "assetCategories": [
+      {
+        "name": "facecams",
+        "title": "Facecams",
+        "allowedTypes": ["jpg", "jpeg", "gif", "png"]
+      }
+    ]
+  },
+  "repository": "https://github.com/nodecg/nodecg.git",
+  "license": "Apache-2.0"
+}

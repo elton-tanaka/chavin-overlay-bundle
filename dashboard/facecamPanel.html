@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>Facecam Imgs Overlay Controls</title>
+</head>
+<body>
+	<form id="update-overlay-facecam">
+		<label for="overlay-facecam">Overlay Facecam</label>
+		<br>
+		<input id="overlay-timer">
+		<div id="timer-countdown"></div>
+		<br>
+		<img id="facecam-img" src="data:," alt="none" height='200' width='200'>
+		<br>
+		<button type="submit">Update</button>
+	</form>
+	<script>
+		const facecamReplicant = nodecg.Replicant('assets:facecams');
+		const activeFacecam = nodecg.Replicant('activeFacecam');
+		const facecamTimer = nodecg.Replicant('facecamTimer');
+        const facecamForm = document.getElementById('update-overlay-facecam');
+		const timerBox = document.getElementById('overlay-timer');
+		let randomNumber;
+
+		facecamForm.addEventListener('submit', e => {
+			e.preventDefault();
+			
+			randomNumber = getRandomInt(0, facecamReplicant.value.length, randomNumber);
+			document.getElementById('facecam-img').src = facecamReplicant.value[randomNumber].url;
+			document.getElementById('facecam-img').alt = facecamReplicant.value[randomNumber].name;
+			activeFacecam.value = facecamReplicant.value[randomNumber].url;
+			facecamTimer.value = timerBox.value;
+
+			window.setTimeout(overlayTimer, 300000); //set to 5 minutes
+
+			this.startTimer();
+		})
+
+		facecamTimer.on('change', value => {
+			timerBox.value = value;
+		});
+
+		function getRandomInt(min, max, previous) {
+ 			min = Math.ceil(min);
+  			max = Math.floor(max);
+			do
+				newNumber = Math.floor(Math.random() * (max - min)) + min;
+			while(newNumber == previous)
+				return newNumber;
+		}
+
+		function overlayTimer() {
+			document.getElementById('facecam-img').src = 'data:,';
+			document.getElementById('facecam-img').alt = '';
+			activeFacecam.value = 'data:,';
+		}
+
+		// Initially, no time has passed, but this will count up
+		// and subtract from the timeLimit
+
+		let timeLimit = facecamTimer.value / 1000;
+		let timePassed = 0;
+		let timeLeft = timeLimit;
+
+		let timerInterval = null;
+
+		document.getElementById("timer-countdown").innerHTML = `
+																<div class="base-timer">
+																<span id="base-timer-label" class="base-timer__label">
+																	${formatTime(timeLeft)}
+																</span>
+																</div>
+																`
+
+
+		function onTimesUp() {
+			timerInterval = null;
+			timePassed = 0;
+			timeLimit = facecamTimer.value / 1000;
+		}
+
+		function startTimer() {
+			onTimesUp();
+			timerInterval = setInterval(() => {
+				timePassed = timePassed += 1;
+				timeLeft = timeLimit - timePassed;
+				document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+				if (timeLeft === 0) {
+					onTimesUp();
+				}
+			}, 1000);
+		}
+
+		function formatTime(time) {
+		const minutes = Math.floor(time / 60);
+		let seconds = time % 60;
+
+		if (seconds < 10) {
+			seconds = `0${seconds}`;
+		}
+
+		return `${minutes}:${seconds}`;
+		}
+		
+	</script>
+</body>
+</html>
