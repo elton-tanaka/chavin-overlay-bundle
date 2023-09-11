@@ -1,3 +1,5 @@
+import { createRoot } from 'react-dom/client';
+
 'use strict';
 
 module.exports = function (nodecg) {

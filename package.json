@@ -1,5 +1,5 @@
 {
-  "name": "text-overlay-bundle",
+  "name": "chavin-overlay-bundle",
   "version": "0.0.0",
   "description": "",
   "homepage": "",
@@ -19,7 +19,7 @@
     "nodecg-bundle"
   ],
   "nodecg": {
-    "compatibleRange": "^1.1.1",
+    "compatibleRange": "^2.1.11",
     "dashboardPanels": [
       {
         "name": "panel",
@@ -52,10 +52,22 @@
       {
         "name": "facecams",
         "title": "Facecams",
-        "allowedTypes": ["jpg", "jpeg", "gif", "png"]
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png"
+        ]
       }
     ]
   },
   "repository": "https://github.com/nodecg/nodecg.git",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
